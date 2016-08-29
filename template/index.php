@@ -81,9 +81,9 @@ $description='my new site';
                                 <ul class="dropdown-menu">
                                     <li>
                                         <div class="panel panel-info">
-                                            <div class="panel-heading">Autorization</div>
+                                            <div class="panel-heading">Authorization</div>
                                             <div class="panel-body">
-                                                <form role="autorize">
+                                                <form role="authorize" name="authorizeForm" method="post" action="index.php">
                                                     <div class="form-group">
                                                         <div class="input-group">
                                                             <input type="text" placeholder="login" name="name" class="form-control input-sm">
