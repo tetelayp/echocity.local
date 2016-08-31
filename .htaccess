@@ -1,0 +1,10 @@
+# http://php2.local/index/default
+# -> http://php2.local/index.php
+
+RewriteEngine On
+
+#RewriteRule ^.*$ index.php [QSA,L]
+
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.*)$ index.php [L,QSA]
