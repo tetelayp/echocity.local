@@ -11,13 +11,24 @@ $parts = explode('/', $url);
 
 if (isset($parts[1]))
 {
-
+    $ctrl = !$parts[1] ? 'Index' : $parts[1];
+} else {
+    $ctrl = 'Index';
 }
 
+if (isset($parts[2]))
+{
+    $action = !$parts[2] ? 'Default' : $parts[2];
+} else {
+    $action = 'Default';
+}
 
-$ctrl = !$parts[1] ? 'Index' : $parts[1];
-$action = !$parts[2] ? 'Default' : $parts[2];
-$param = !$parts[3] ? 0 : $parts[3];
+if (isset($parts[3]))
+{
+    $param = !$parts[3] ? 0 : $parts[3];
+} else {
+    $param = 0;
+}
 
 var_dump($ctrl);
 var_dump($action);
