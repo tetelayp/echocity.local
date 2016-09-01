@@ -100,14 +100,20 @@ class Db
 
     }
 
-    public function query($sql, $class)
+    public function query($sql, $class = null)
     {
         unset($this->queryResult);
         try {
             $sth =  $this->dbh->prepare($sql);
             $res = $sth->execute();
             if (false!==$res) {
-                $this->queryResult = $sth->fetchAll(\PDO::FETCH_CLASS, $class);
+                if (!$class)
+                {
+                    $this->queryResult = $sth->fetchAll();
+                } else {
+                    $this->queryResult = $sth->fetchAll(\PDO::FETCH_CLASS, $class);
+                }
+
             } else {
                 $this->queryResult = [];
             }

@@ -1,5 +1,12 @@
 <?php
 require __DIR__ . '/autoload.php';
-$news = new \Models\News();
+$n = new \Models\News();
 //$news->createNewsTable();
-var_dump($news->addArticle('Появились новые работы в разделах \'Разное, Техника, Дерево, Паяльник, Туризм, Отдых, Кулинария\'', 'Друзья, приглашаю Вас взглянуть на эти фото!'));
+//var_dump($news->addArticle('1 Сентября', 'Начало учебного года!'));
+
+//$a=$news->getArticleByID(1);
+//var_dump($a);
+//echo date('d.m.Y (H:i)', $a[0]->dateCreate);
+
+$a = $n->getLastArticlesTitles(2);
+var_dump($a);

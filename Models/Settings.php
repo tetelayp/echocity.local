@@ -14,6 +14,7 @@ class Settings
     const PATH_UPLOAD = 'assets/upload';
 
     const TABLE_NEWS = 'news';
+    const ARTICLES_LIMIT = 10;
 
     const PATH_GALLERY = 'assets/gallery';
     const TABLE_GALLERY = 'gallery';
