@@ -11,6 +11,9 @@ class Settings
 
     const SITE_TITLE = 'EchoCity new version';
     const SITE_DESCRIPTION = 'My new site';
+    const PATH_UPLOAD = 'assets/upload';
+
+    const TABLE_NEWS = 'news';
 
     const PATH_GALLERY = 'assets/gallery';
     const TABLE_GALLERY = 'gallery';

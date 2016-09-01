@@ -13,7 +13,7 @@ class Gallery
     }
 
 
-    public function createGallery()
+    public function createGalleryTable()
     {
         return $this->db->createTable(Settings::TABLE_GALLERY, Album::VARS_LIST);
     }

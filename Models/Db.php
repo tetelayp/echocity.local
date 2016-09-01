@@ -63,7 +63,7 @@ class Db
         $values = $this->getPropsArray($data);
 
         if (false === $values){
-            return; //получен пустой объект
+            return false; //получен пустой объект
         }
         $props = '`' . implode('`, `', array_keys($values)) . '`';
         //var_dump($props);
@@ -73,7 +73,7 @@ class Db
 
         $sql = 'INSERT INTO `' . $tableName . '` (' . $props . ') VALUES (' . $values . ');';
         //var_dump($sql);
-        $this->execute($sql);
+        return $this->execute($sql);
     }
 
     public function getAllRecords($tableName, $class)

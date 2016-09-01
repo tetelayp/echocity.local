@@ -1,10 +1,6 @@
 <?php
 require __DIR__ . '/autoload.php';
 
-
-//var_dump($_SERVER['SERVER_NAME']);
-
-
 $url = $_SERVER['REQUEST_URI'];
 
 $parts = explode('/', $url);
@@ -30,23 +26,25 @@ if (isset($parts[3]))
     $param = 0;
 }
 
-var_dump($ctrl);
-var_dump($action);
-var_dump($param);
-
-
-//$action = $parts[2] ?: 'Default';
-
-//$ctrl = 'Index';
-//$action = 'Gallery';
-//$param = 31;
 try {
+    //$a = new Exception('Message',12345);
+    //throw $a;
     $ctrlClass = 'Controllers\\'. ucfirst($ctrl);
+
+    if (!class_exists($ctrlClass)){
+        $ctrlClass = 'Controllers\\Index';
+        $actionMethodName = 'actionDefault';
+    } else {
+        $actionMethodName = 'action' . ucfirst($action);
+    }
     $controller = new $ctrlClass;
 
-    $actionMethodName = 'action' . ucfirst($action);
+    if (!method_exists($controller, $actionMethodName)){
+        $actionMethodName = 'actionDefault';
+    }
     $controller->$actionMethodName($param);
-} catch ( PDOException $e )
+
+} catch (Exception $e)
 {
     echo 'Ошибка: ' . $e->getMessage();
 }
