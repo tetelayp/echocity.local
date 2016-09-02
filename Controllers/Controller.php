@@ -12,8 +12,8 @@ class Controller
     public function __construct()
     {
         $this->view = new View();
-        $this->view->title = Settings::SITE_TITLE;
-        $this->view->description = Settings::SITE_DESCRIPTION;
+        $this->view->title = \Settings::SITE_TITLE;
+        $this->view->description = \Settings::SITE_DESCRIPTION;
         $this->view->server = $_SERVER['SERVER_NAME'];
     }
 

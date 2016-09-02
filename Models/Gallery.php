@@ -15,18 +15,18 @@ class Gallery
 
     public function createGalleryTable()
     {
-        return $this->db->createTable(Settings::TABLE_GALLERY, Album::VARS_LIST);
+        return $this->db->createTable(\Settings::TABLE_GALLERY, Album::VARS_LIST);
     }
 
 
     public function getAlbumsArray()
     {
-        return $this->db->getAllRecords(Settings::TABLE_GALLERY, Album::class);
+        return $this->db->getAllRecords(\Settings::TABLE_GALLERY, Album::class);
     }
 
     public function getAlbumParamByID($albumID, $param)
     {
-        $query = $this->db->getRecordsByID(Settings::TABLE_GALLERY, $albumID, Album::class);
+        $query = $this->db->getRecordsByID(\Settings::TABLE_GALLERY, $albumID, Album::class);
         if(!isset($query[0]))
         {
             return false;
@@ -37,12 +37,12 @@ class Gallery
 
     public function getAlbum ($albumID)
     {
-        return $this->db->query('SELECT * FROM `' . Settings::TABLE_PICTURES . '` WHERE albumID=' . $albumID, Picture::class);
+        return $this->db->query('SELECT * FROM `' . \Settings::TABLE_PICTURES . '` WHERE albumID=' . $albumID, Picture::class);
     }
 
     public function addPicsArrayToTable($albumID, $fileNamesArray)
     {
-        $album = $this->db->getRecordsByID(Settings::TABLE_GALLERY, $albumID,Album::class);
+        $album = $this->db->getRecordsByID(\Settings::TABLE_GALLERY, $albumID,Album::class);
         if (!isset($album[0]))
             {
                 return false;
@@ -55,14 +55,14 @@ class Gallery
             $pic->filename = $name;
             $pic->label = 'file - ' . $name;
             $pic->description = 'Album - ' . $album[0]->folder . ', file - ' . $name;
-            $this->db->insertRecord(Settings::TABLE_PICTURES, $pic);
+            $this->db->insertRecord(\Settings::TABLE_PICTURES, $pic);
         }
         return true;
     }
 
     public static function getFoldersArray()
     {
-        $path = __DIR__ . '/../' . Settings::PATH_GALLERY;
+        $path = __DIR__ . '/../' . \Settings::PATH_GALLERY;
 
         if (file_exists($path))
         {
@@ -86,7 +86,7 @@ class Gallery
 
     public static function getFileArray($folderName)
     {
-        $path = __DIR__ . '/../' . Settings::PATH_GALLERY . '/' . $folderName;
+        $path = __DIR__ . '/../' . \Settings::PATH_GALLERY . '/' . $folderName;
         if (!file_exists($path))
             {
                 return false;

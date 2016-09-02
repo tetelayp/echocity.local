@@ -1,7 +1,4 @@
 <?php
-namespace Models;
-
-
 class Settings
 {
     const DBNAME = 'dbEcho';
@@ -14,7 +11,7 @@ class Settings
     const PATH_UPLOAD = 'assets/upload';
 
     const TABLE_NEWS = 'news';
-    const ARTICLES_LIMIT = 10;
+    const ARTICLES_LIMIT = 5;
 
     const PATH_GALLERY = 'assets/gallery';
     const TABLE_GALLERY = 'gallery';

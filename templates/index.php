@@ -134,14 +134,14 @@
                 <div class="col-lg-3 col-lg-pull-9">
 
                     <div class="panel panel-info">
-                        <div class="panel-heading">News</div>
+                        <div class="panel-heading">Последние новости</div>
                         <div class="panel-body">
                             <ul class="list-group">
                                 <?php
                                 foreach ($this->articlesTitles as $articlesTitle):
                                     $dateCreate = date('d.m.y', $articlesTitle->dateCreate);
                                 ?>
-                                <li class="list-group-item"><a href="/Index/News/<?=$articlesTitle->id?>"><?=$articlesTitle->title?></a> <span class="badge"><?=$dateCreate?></span></li>
+                                <li class="list-group-item"><a href="/Index/News/n<?=$articlesTitle->id?>"><?=$articlesTitle->title?></a> <span class="badge"><?=$dateCreate?></span></li>
                                 <?php
                                 endforeach;
                                 ?>

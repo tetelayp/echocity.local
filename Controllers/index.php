@@ -23,7 +23,7 @@ class Index extends Controller
         $this->view->albumsArray = $this->albumsArray;
 
         $this->news = new News();
-        $this->view->articlesTitles = $this->news->getLastArticlesTitles(0);
+        $this->view->articlesTitles = $this->news->getLastArticlesTitles(7);
     }
 
     public function actionDefault()
@@ -34,7 +34,8 @@ class Index extends Controller
 
     public function actionNews($page = 0)
     {
-        $this->view->articles = $this->news->getArticles($page, 2);
+        
+        $this->view->articles = $this->news->getArticles($page);
         $this->view->subTemplate = 'news.php';
         $this->view->display(__DIR__ . '/../templates/index.php');
     }

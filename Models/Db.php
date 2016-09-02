@@ -10,10 +10,10 @@ class Db
 
     public function __construct()
     {
-        $dbName = Settings::DBNAME;
-        $host = Settings::HOST;
-        $user = Settings::USER;
-        $password = Settings::PASSWORD;
+        $dbName = \Settings::DBNAME;
+        $host = \Settings::HOST;
+        $user = \Settings::USER;
+        $password = \Settings::PASSWORD;
 
         try {
             //создаем соединение с БД
