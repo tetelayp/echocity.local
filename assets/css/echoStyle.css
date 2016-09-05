@@ -64,12 +64,20 @@ html, body {
 }
 
 .panel {
-    border-radius: 0;
+    border-radius: 15px;
 }
 .panel-heading {
-    border-radius: 0;
+    border-radius: 15px 15px 0 0;
 }
 
-form, .form-group, .input-group {
+form, .form-group, .input-group, .articleTitle {
     width: 100%;
+}
+
+.badge {
+    float: right;
+}
+
+.nextNews{
+    text-align: right;
 }

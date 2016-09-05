@@ -103,6 +103,7 @@ class Db
     public function query($sql, $class = null)
     {
         unset($this->queryResult);
+        //var_dump($sql);
         try {
             $sth =  $this->dbh->prepare($sql);
             $res = $sth->execute();

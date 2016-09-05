@@ -44,14 +44,19 @@
                     <div id="navbarCollapse" class="collapse navbar-collapse navbar-right">
                         <ul class="nav nav-pills">
                             <li <?php
-
-                            if ('main.php' == $this->subTemplate):
+                                if ('main.php' == $this->subTemplate):
+                                    ?>
+                                    class="active"
+                                    <?php
+                                endif;
+                            ?>><a href="/Index">На главную</a></li>
+                            <li <?php
+                            if ('news.php' == $this->subTemplate):
                                 ?>
                                 class="active"
                                 <?php
                             endif;
-                            ?>><a href="/Index">На главную</a></li>
-                            <li><a href="/Index/News">Новости</a></li>
+                            ?>><a href="/Index/News">Новости</a></li>
                             <li <?php
                             if ('gallery.php' == $this->subTemplate):
                                 ?>
@@ -141,7 +146,12 @@
                                 foreach ($this->articlesTitles as $articlesTitle):
                                     $dateCreate = date('d.m.y', $articlesTitle->dateCreate);
                                 ?>
-                                <li class="list-group-item"><a href="/Index/News/n<?=$articlesTitle->id?>"><?=$articlesTitle->title?></a> <span class="badge"><?=$dateCreate?></span></li>
+                                <li class="list-group-item">
+                                    <a href="/Index/News/n<?=$articlesTitle->id?>">
+                                        <div class="articleTitle"><?=$articlesTitle->title?> <span class="badge"><?=$dateCreate?></span></div>
+                                    </a>
+
+                                </li>
                                 <?php
                                 endforeach;
                                 ?>
