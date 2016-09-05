@@ -23,33 +23,20 @@ endforeach;
 <div class="row">
     <div class="col-md-6">
         <?php
-        //$this->pagesCount = 12203; // remove!!!
-        $pagesStep = floor(strlen($this->pagesCount) / 2);
-        if (0 == $pagesStep) {
-            $pagesStep++;
+        foreach ($this->pagesArray as $v) {
+            if ($this->currentPage == $v):
+
+                ?>
+                <span class="lead"><?= $v + 1 ?></span>
+                <?php
+            else:
+                $pageLink = '/Index/News/' . $v;
+                ?>
+                <a href="<?= $pageLink ?>"><?= $v + 1 ?></a>
+                <?php
+            endif;
         }
-        $pagesStep =(INT) pow(10, $pagesStep);// интервал между группами страниц (10-100-1000...)
-        //var_dump($pagesStep);
-        //$this->currentPage = 80;
-        $delta = 5;// кличество страниц идущих подряд до и после текущей
-        for ($i = 0; $i < $this->pagesCount; $i++):
 
-            $showLink = ($i < $delta) || (abs($this->currentPage - $i) <= $delta) || (($i + 1) % $pagesStep == 0) || ($i >= ($this->pagesCount - $delta));
-            if ($showLink) {
-                if ($this->currentPage == $i ):
-
-                    ?>
-                    <span class="lead"><?= $i+1 ?></span>
-                    <?php
-                else:
-                    $pageLink = '/Index/News/' . $i;
-                    ?>
-                    <a href="<?= $pageLink ?>"><?= $i+1 ?></a>
-                    <?php
-                endif;
-            }
-
-        endfor;
         ?>
     </div>
     <div class="col-md-6 nextNews">
@@ -61,7 +48,7 @@ endforeach;
         }
 
         if ($this->pagesCount <= $this->currentPage) {
-            $pageNextLink = '/Index/News/' . $this->currentPage++;
+            $pageNextLink = '/Index/News/' . ($this->pagesCount - 1);
         } else {
             $pageNextLink = '/Index/News/' . ($this->currentPage + 1);
         }

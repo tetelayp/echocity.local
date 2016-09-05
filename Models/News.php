@@ -52,6 +52,9 @@ class News
 
     public function getArticles($page, $limit = \Settings::ARTICLES_LIMIT)
     {
+        if ($page <0){
+            $page = 0;
+        }
         if (!$limit) {
             $limit = $this->getArticlesCount();
         }
@@ -91,6 +94,88 @@ class News
 
         $sql = 'SELECT `id`, `title`, `dateCreate` FROM `' . \Settings::TABLE_NEWS . '` WHERE 1 ORDER BY `id` DESC LIMIT ' . $limit;
         return $this->db->query($sql, Article::class);
+    }
+
+    /**
+     * Возвращает упорядоченный массив чисел с номерами страниц новостей для использования в быстрых ссылках
+     * @param $currentPage - текущая страница
+     * @param int $pagesCount - количество страниц новостей
+     * @param int $delta - количество идущих подряд ссылок типа - 1, 2, 3, 4,
+     * @param int $interval - количество идущих подряд ссылок типа - 10, 20, 30, 40,
+     */
+    public function getPagesArray($currentPage, $pagesCount = 0, $delta = 5, $interval = 10)
+    {
+        if (0 == $pagesCount)
+        {
+            $pagesCount = ceil($this->getArticlesCount() / \Settings::ARTICLES_LIMIT);
+        }
+        if (0 == $pagesCount){
+            return [];
+        }
+
+        if ($currentPage < 0){
+            $currentPage = 0;
+        }
+        if ($currentPage >= $pagesCount){
+            $currentPage = $pagesCount - 1;
+        }
+
+        $result = [];
+        for ($i = 0; ($i<$delta)&($i<$currentPage) ;$i++){
+            $result[$i]=$i;
+        }
+
+        for ($i = 0; ($i<$delta);$i++){
+            $pos = $currentPage - $i;
+            if (0 <= $pos){
+                $result[$pos]=$pos;
+            }
+            $pos = $currentPage + $i;
+            if (($pagesCount-1) >= $pos){
+                $result[$pos]=$pos;
+            }
+        }
+
+
+        for ($i = $pagesCount-1; ($i>$pagesCount-1-$delta)&&($i>$currentPage) ;$i--){
+            $result[$i]=$i;
+        }
+
+
+        $step = floor($currentPage / $interval);
+        if (0 >= $step){
+            $step = 1;
+        }
+
+        $z = strlen($step);
+        if ($z>1){
+            $step = substr($step,0,1)* pow(10,$z-1);
+        }
+
+        for ($i = $step-1; $i < $currentPage; $i+=$step){
+            $result[$i]=$i;
+        }
+
+
+        $step = floor(($pagesCount-$currentPage) / $interval);
+        if (0 >= $step){
+            $step = 1;
+        }
+
+        $z = strlen($step);
+        if ($z>1){
+            $step = substr($step,0,1)* pow(10,$z-1);
+        }
+
+        $startPos = (int) ceil(($currentPage + $step)/10)*10-1;
+        if ($startPos < 0){
+            $startPos = 0;
+        }
+        for ($i = $startPos; $i < $pagesCount; $i+=$step){
+            $result[$i]=$i;
+        }
+        sort($result);
+        return $result;
     }
 
 }
