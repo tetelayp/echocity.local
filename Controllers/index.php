@@ -34,8 +34,19 @@ class Index extends Controller
 
     public function actionNews($page = 0)
     {
-        
+        $this->view->pagesCount = ceil($this->news->getArticlesCount() / \Settings::ARTICLES_LIMIT);
+
         $this->view->articles = $this->news->getArticles($page);
+
+        if (substr($page,0,1)!='n')
+        {
+            $this->view->currentPage = $page;
+        } else {
+            $articleNumber = substr($page,1);
+            $this->view->currentPage = floor($articleNumber / \Settings::ARTICLES_LIMIT);
+
+        }
+
         $this->view->subTemplate = 'news.php';
         $this->view->display(__DIR__ . '/../templates/index.php');
     }
