@@ -29,7 +29,7 @@ class News
         return html_entity_decode($text);
     }
 
-    public function addArticle($title, $content)
+    public function addArticle($title, $content, $id = 0)
     {
         $article = new Article();
         $article->title = $title;
@@ -177,5 +177,7 @@ class News
         sort($result);
         return $result;
     }
+
+    /************************************************************/
 
 }

@@ -6,3 +6,6 @@
 
     <div>&nbsp;</div>
 </div>
+
+<?php
+var_dump('123');

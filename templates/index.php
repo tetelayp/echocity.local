@@ -80,7 +80,9 @@
                             </li>
                             <li><a href="#">Контакты</a></li>
                             <li><a href="#">О сайте</a></li>
-
+                            <?php
+                            if (!$this->login):
+                            ?>
                             <li role="presentation" class="dropdown">
                                 <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
                                     Вход <span class="caret"></span>
@@ -90,7 +92,7 @@
                                         <div class="panel panel-info">
                                             <div class="panel-heading">Авторизация</div>
                                             <div class="panel-body">
-                                                <form role="authorize" name="authorizeForm" method="post" action="index.php">
+                                                <form role="authorize" name="authorizeForm" method="post" action="../index/login">
                                                     <div class="form-group">
                                                         <div class="input-group">
                                                             <input type="text" placeholder="login" name="name" class="form-control input-sm">
@@ -102,15 +104,19 @@
                                                             </div>
                                                         </div>
                                                     </div>
-
-
                                                 </form>
                                             </div>
                                         </div>
                                     </li>
                                 </ul>
                             </li>
-
+                            <?php
+                            else:
+                            ?>
+                                <li><a href="../index/logout">Выход</a></li>
+                            <?php
+                            endif;
+                            ?>
                         </ul>
                     </div>
                 </div>
@@ -169,7 +175,7 @@
 </main>
 <footer>
     <div class="container">
-        <p class="text-center"><a href="#">(C) echocity.ru</a></p>
+        <p class="text-center"><a href="#">(C) <?=$this->server?></a></p>
     </div>
 </footer>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

@@ -6,6 +6,7 @@ namespace Controllers;
 use Models\Gallery;
 use Models\News;
 use Models\Settings;
+use Models\User;
 use Models\View;
 
 class Index extends Controller
@@ -19,11 +20,50 @@ class Index extends Controller
         parent::__construct();
 
         $this->gallery = new Gallery();
-        $this->albumsArray = $this->gallery->getAlbumsArray();
-        $this->view->albumsArray = $this->albumsArray;
+        $this->view->albumsArray = $this->gallery->getAlbumsArray();
 
         $this->news = new News();
         $this->view->articlesTitles = $this->news->getLastArticlesTitles(7);
+
+        //check authorization
+        session_start();
+        if (isset($_SESSION['echoAuthorize'])){
+            $this->view->login = true;
+            echo 'Authorize';
+        } else {
+            $this->view->login = false;
+        }
+    }
+
+    public function actionLogin()
+    {
+
+        $user = User::getUser(1,2);
+        if($user){
+            if (!isset($_SESSION['echoAuthorize'])) {
+                if ( !session_id() ) session_start();
+
+                $_SESSION['echoAuthorize'] = $user->id;
+
+                $this->view->login = true;
+                echo 'LOGIN';
+            }
+        }
+        $this->actionDefault();
+    }
+
+    public function actionLogout()
+    {
+            if (session_id()) {
+
+                setcookie(session_name(), session_id(), time()-60*60*24);
+
+                session_unset();
+                session_destroy();
+                $this->view->login = false;
+                echo 'LOGOUT';
+            }
+        $this->actionDefault();
     }
 
     public function actionDefault()
@@ -32,20 +72,26 @@ class Index extends Controller
         $this->view->display(__DIR__ . '/../templates/index.php');
     }
 
+
+
     public function actionNews($page = 0)
     {
-        $this->view->pagesCount = ceil($this->news->getArticlesCount() / \Settings::ARTICLES_LIMIT);
+        $this->view->pagesCount = (int) ceil($this->news->getArticlesCount() / \Settings::ARTICLES_LIMIT);// количесво страниц новостей
 
-        $this->view->articles = $this->news->getArticles($page);
+
+        $this->view->articles = $this->news->getArticles($page);// новости лоя заданной страницы
 
         if (substr($page,0,1)!='n')
         {
-            $this->view->currentPage = $page;
+            $this->view->currentPage = (int) $page;
         } else {
             $articleNumber = substr($page,1);
-            $this->view->currentPage = floor($articleNumber / \Settings::ARTICLES_LIMIT);
+            $this->view->currentPage = (int) floor($articleNumber / \Settings::ARTICLES_LIMIT);
 
         }
+
+        $this->view->pagesArray = $this->news->getPagesArray($this->view->currentPage, $this->view->pagesCount);
+
 
         $this->view->subTemplate = 'news.php';
         $this->view->display(__DIR__ . '/../templates/index.php');
@@ -57,7 +103,7 @@ class Index extends Controller
 
         if (!$album)
         {
-            $lst = $this->albumsArray;
+            $lst = $this->view->albumsArray;
             $this->view->header = 'Альбомы';
             $this->view->subTemplate = 'gallery.php';
         } else {
