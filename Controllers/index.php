@@ -3,6 +3,7 @@
 namespace Controllers;
 
 
+use Models\Article;
 use Models\Gallery;
 use Models\News;
 use Models\Settings;
@@ -58,7 +59,6 @@ class Index extends Controller
 
                 setcookie(session_name(), session_id(), time()-60*60*24);
 
-                session_unset();
                 session_destroy();
                 $this->view->login = false;
                 echo 'LOGOUT';
@@ -73,10 +73,26 @@ class Index extends Controller
     }
 
 
-
-    public function actionNews($page = 0)
+    public function actionEdit($id)
     {
-        $this->view->pagesCount = (int) ceil($this->news->getArticlesCount() / \Settings::ARTICLES_LIMIT);// количесво страниц новостей
+        //check permission
+        if(true)
+        {
+            $article = $this->news->getArticleByID($id);
+            if (!$article){
+                $article = new Article();
+            }
+            
+            $this->view->editArticle = $article;
+            $this->view->subTemplate = 'editor.php';
+            $this->view->display($_SERVER['DOCUMENT_ROOT'] . '/templates/index.php');
+        }
+    }
+
+
+    public function actionNews($page = 1)
+    {
+        $this->view->pagesCount = 11112;//(int) ceil($this->news->getArticlesCount() / \Settings::ARTICLES_LIMIT);// количесво страниц новостей
 
 
         $this->view->articles = $this->news->getArticles($page);// новости лоя заданной страницы
@@ -94,7 +110,7 @@ class Index extends Controller
 
 
         $this->view->subTemplate = 'news.php';
-        $this->view->display(__DIR__ . '/../templates/index.php');
+        $this->view->display($_SERVER['DOCUMENT_ROOT'] . '/templates/index.php');
     }
 
     public function actionGallery($albumID)
@@ -117,6 +133,6 @@ class Index extends Controller
         $this->view->gallery = $lst;
 
 
-        $this->view->display(__DIR__ . '/../templates/index.php');
+        $this->view->display($_SERVER['DOCUMENT_ROOT'] . '/templates/index.php');
     }
 }

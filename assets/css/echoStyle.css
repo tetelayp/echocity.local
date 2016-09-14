@@ -81,3 +81,31 @@ form, .form-group, .input-group, .articleTitle {
 .nextNews{
     text-align: right;
 }
+
+.editModalBackground{
+    position: fixed;
+    top:0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.21);
+
+}
+
+
+.editModal{
+    width: 100%;
+    position: absolute;
+}
+
+.editModalDisable{
+    display: none;
+}
+
+.editModal a{
+    color: #f5e79e;
+}
+
+.editItem {
+    width: 100%;
+    margin: 20px 0 20px 0;
+}

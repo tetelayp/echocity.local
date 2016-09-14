@@ -92,7 +92,7 @@
                                         <div class="panel panel-info">
                                             <div class="panel-heading">Авторизация</div>
                                             <div class="panel-body">
-                                                <form role="authorize" name="authorizeForm" method="post" action="../index/login">
+                                                <form role="authorize" name="authorizeForm" method="post" action="/index/login">
                                                     <div class="form-group">
                                                         <div class="input-group">
                                                             <input type="text" placeholder="login" name="name" class="form-control input-sm">
@@ -113,7 +113,7 @@
                             <?php
                             else:
                             ?>
-                                <li><a href="../index/logout">Выход</a></li>
+                                <li><a href="/index/logout">Выход</a></li>
                             <?php
                             endif;
                             ?>
@@ -132,7 +132,7 @@
 
                     <?php
                     /**
-                     *  подключенье подшаблона
+                     *  подключение подшаблона
                      */
                         include __DIR__ . '/' . $this->subTemplate;
 
@@ -178,9 +178,54 @@
         <p class="text-center"><a href="#">(C) <?=$this->server?></a></p>
     </div>
 </footer>
+
+<div class="editModal editModalDisable wrapper">
+    <div class="editModalBackground"></div>
+    <div class="container">
+        <div class="row">
+                <div class="col-lg-3"></div>
+                <div class="col-lg-9">
+                    <div class="row">
+                        <div class="panel panel-danger">
+                            <div class="panel-heading" id="editPanelTitle">
+                                Редактор
+                            </div>
+                            <div class="panel-body">
+                                <script src="/ckeditor/ckeditor.js"></script>
+                                <form name="editForm"  method="post" action="/ajax.php">
+                                    <div class="editItem">
+                                        <input name="title" type="text" maxlength="100" id="editTitle" style="width: 100%" placeholder="Краткое описание (заголовок)">
+                                    </div>
+                                    <div class="row">
+                                        <textarea name="content" id="editContent" style="width: 100%" placeholder="Содержание"></textarea>
+                                    </div>
+                                    <div class="editItem">
+                                        <input id="editSubmit" type="submit" value="Сохранить">
+                                        <input id="editCancel" type="button" value="Отменить">
+                                    </div>
+                                    <script>
+                                        // Replace the <textarea id="editor1"> with a CKEditor
+                                        // instance, using default configuration.
+                                        CKEDITOR.replace( 'editContent' );
+                                    </script>
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+        </div>
+    </div>
+
+
+</div>
+
+
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="/assets/js/bootstrap.min.js"></script>
+    <script src="/assets/jse/editor.js"></script>
 </body>
 </html>

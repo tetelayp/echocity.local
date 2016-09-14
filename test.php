@@ -1,5 +1,6 @@
 <?php
 //phpinfo();
+var_dump($_POST);
 include __DIR__ . '/templates/editor.php';
 
 /*

@@ -40,7 +40,9 @@ class News
 
     public function getArticleByID($articleID)
     {
-        return $this->db->getRecordsByID(\Settings::TABLE_NEWS, $articleID, Article::class);
+        $result = $this->db->getRecordsByID(\Settings::TABLE_NEWS, $articleID, Article::class);
+        if (!isset($result[0])) return null;
+        return $result[0];
     }
 
     public function getArticlesCount()
@@ -52,6 +54,7 @@ class News
 
     public function getArticles($page, $limit = \Settings::ARTICLES_LIMIT)
     {
+        $page -=1;
         if ($page <0){
             $page = 0;
         }
@@ -113,31 +116,31 @@ class News
             return [];
         }
 
-        if ($currentPage < 0){
-            $currentPage = 0;
+        if ($currentPage < 1){
+            $currentPage = 1;
         }
-        if ($currentPage >= $pagesCount){
-            $currentPage = $pagesCount - 1;
+        if ($currentPage > $pagesCount){
+            $currentPage = $pagesCount;
         }
 
         $result = [];
-        for ($i = 0; ($i<$delta)&($i<$currentPage) ;$i++){
+        for ($i = 1; ($i<=$delta)&($i<$currentPage) ;$i++){
             $result[$i]=$i;
         }
 
-        for ($i = 0; ($i<$delta);$i++){
+        for ($i = 1; ($i<=$delta);$i++){
             $pos = $currentPage - $i;
-            if (0 <= $pos){
+            if (1 <= $pos){
                 $result[$pos]=$pos;
             }
             $pos = $currentPage + $i;
-            if (($pagesCount-1) >= $pos){
+            if ($pagesCount >= $pos){
                 $result[$pos]=$pos;
             }
         }
 
 
-        for ($i = $pagesCount-1; ($i>$pagesCount-1-$delta)&&($i>$currentPage) ;$i--){
+        for ($i = $pagesCount; ($i>$pagesCount-$delta)&&($i>=$currentPage) ;$i--){
             $result[$i]=$i;
         }
 
@@ -152,7 +155,7 @@ class News
             $step = substr($step,0,1)* pow(10,$z-1);
         }
 
-        for ($i = $step-1; $i < $currentPage; $i+=$step){
+        for ($i = $step; $i <= $currentPage; $i+=$step){
             $result[$i]=$i;
         }
 
@@ -167,11 +170,11 @@ class News
             $step = substr($step,0,1)* pow(10,$z-1);
         }
 
-        $startPos = (int) ceil(($currentPage + $step)/10)*10-1;
-        if ($startPos < 0){
-            $startPos = 0;
+        $startPos = (int) ceil(($currentPage + $step)/10)*10;
+        if ($startPos < 1){
+            $startPos = 1;
         }
-        for ($i = $startPos; $i < $pagesCount; $i+=$step){
+        for ($i = $startPos; $i <= $pagesCount; $i+=$step){
             $result[$i]=$i;
         }
         sort($result);
