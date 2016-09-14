@@ -1,8 +1,20 @@
 <h3>Новости</h3>
 <hr>
 <?php
+$editable = 'editable';
+$editable = !isset($editable)?'':$editable;
+if ('editable' == $editable):
+?>
+<div class="row" style="text-align: center">
+    <a href="#" style="text-decoration: none">
+        <div class="panel panel-danger <?=$editable?>" style=" padding-top: 10px; padding-bottom: 10px">
+            Добавить новость
+        </div>
+    </a>
+</div>
+<?php
+endif;
 
-$editable = ' editable';
 
 foreach ($this->articles as $article):
     $dateCreate = date('d.m.Y', $article->dateCreate);
