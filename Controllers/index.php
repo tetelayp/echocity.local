@@ -92,7 +92,7 @@ class Index extends Controller
 
     public function actionNews($page = 1)
     {
-        $this->view->pagesCount = 11112;//(int) ceil($this->news->getArticlesCount() / \Settings::ARTICLES_LIMIT);// количесво страниц новостей
+        $this->view->pagesCount =(int) ceil($this->news->getArticlesCount() / \Settings::ARTICLES_LIMIT);// количесво страниц новостей
 
 
         $this->view->articles = $this->news->getArticles($page);// новости лоя заданной страницы

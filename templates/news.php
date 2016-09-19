@@ -28,7 +28,7 @@ foreach ($this->articles as $article):
             <div class="panel-body">
                 <p><?= $article->content ?></p>
             </div>
-
+<!--            <div class="editRemove"><span class="glyphicon glyphicon-remove"></span></div>-->
         </div>
     </div>
     <?php

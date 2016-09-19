@@ -179,53 +179,38 @@
     </div>
 </footer>
 
-<div class="editModal editModalDisable wrapper">
-    <div class="editModalBackground"></div>
-    <div class="container">
-        <div class="row">
-                <div class="col-lg-3"></div>
-                <div class="col-lg-9">
-                    <div class="row">
-                        <div class="panel panel-danger">
-                            <div class="panel-heading" id="editPanelTitle">
-                                Редактор
-                            </div>
-                            <div class="panel-body">
-                                <script src="/ckeditor/ckeditor.js"></script>
-                                <form name="editForm"  method="post" action="/ajax.php">
-                                    <div class="editItem">
-                                        <input name="title" type="text" maxlength="100" id="editTitle" style="width: 100%" placeholder="Краткое описание (заголовок)">
-                                    </div>
-                                    <div class="row">
-                                        <textarea name="content" id="editContent" style="width: 100%" placeholder="Содержание"></textarea>
-                                    </div>
-                                    <div class="editItem">
-                                        <input id="editSubmit" type="submit" value="Сохранить">
-                                        <input id="editCancel" type="button" value="Отменить">
-                                    </div>
-                                    <script>
-                                        // Replace the <textarea id="editor1"> with a CKEditor
-                                        // instance, using default configuration.
-                                        CKEDITOR.replace( 'editContent' );
-                                    </script>
+<?php
 
-                                </form>
-                            </div>
-                        </div>
-                    </div>
+include __DIR__ . '/modalDialog.php';
 
-                </div>
-        </div>
-    </div>
-
-
-</div>
+?>
 
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="/assets/js/bootstrap.min.js"></script>
-    <script src="/assets/jse/editor.js"></script>
+
+<script>
+    // bootstrap-ckeditor-fix.js
+    // hack to fix ckeditor/bootstrap compatiability bug when ckeditor appears in a bootstrap modal dialog
+    //
+    // Include this file AFTER both jQuery and bootstrap are loaded.
+    $.fn.modal.Constructor.prototype.enforceFocus = function() {
+        modal_this = this;
+        $(document).on('focusin.modal', function (e) {
+            if (modal_this.$element[0] !== e.target && !modal_this.$element.has(e.target).length
+                && !$(e.target.parentNode).hasClass('cke_dialog_ui_input_select')
+                && !$(e.target.parentNode).hasClass('cke_dialog_ui_input_text')) {
+                modal_this.$element.focus()
+            }
+        })
+    };
+</script>
+
+
+
+    <script src="/assets/js/manipulator.js"></script>
+<!--    <script src="/assets/jse/editor.js"></script>-->
 </body>
 </html>

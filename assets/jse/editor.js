@@ -1,17 +1,70 @@
 var link = document.querySelectorAll('.editable');
 var child = link.childNodes;
 //edit events
+var longTap;
+
+/**
+ *
+ * @param linkElement  - ~document.querySelector('.editable');
+ * @param classDefault - ~'green'
+ * @param classOver - ~'yellow'
+ */
+function changeClassOverElement(linkElement, classDefault, classOver) {
+    linkElement.addEventListener('mouseover', function (e) {
+       // e.preventDefault();
+        this.classList.remove(classDefault);//'panel-info'
+        this.classList.add(classOver);//'panel-warning'
+    });
+    linkElement.addEventListener('mouseout', function (e) {
+        //e.preventDefault();
+        this.classList.remove(classOver);//'panel-warning'
+        this.classList.add(classDefault);//'panel-info'
+    });
+}
+
+
+function longTapListener(linkElement, delay,callBack, param) {
+    linkElement.addEventListener('mousedown', function (e) {
+        e.preventDefault();
+        longTap = true;
+        setTimeout(function () {
+            if (longTap){
+
+                if (typeof (callBack) === 'function') callBack(param);
+            }
+        }, delay);
+        //console.log('down');
+    });
+
+    linkElement.addEventListener('mouseup', function (e) {
+        longTap = false;
+        //console.log('up');
+    });
+    linkElement.addEventListener('mouseout', function (e) {
+        longTap = false;
+        //console.log('up');
+    });
+}
+
+
+
+
+
+
+function longTapEvent(param) {
+  alert (param);
+}
+
+
+
+
 for(var i = 0; i<link.length; i++) {
-    link[i].addEventListener('mouseover', function (e) {
-        e.preventDefault();
-        this.classList.remove('panel-info');
-        this.classList.add('panel-warning');
-    });
-    link[i].addEventListener('mouseout', function (e) {
-        e.preventDefault();
-        this.classList.remove('panel-warning');
-        this.classList.add('panel-info');
-    });
+
+    changeClassOverElement(link[i], 'panel-info', 'panel-warning');
+
+///////   long tap    ///////
+    longTapListener(link[i], 1000, longTapEvent, 'aaaaaaaaaaaa');
+///////   END long tap    ///////
 
     link[i].addEventListener('click', function (e) {
         var modal = document.querySelector('.editModal');
@@ -19,8 +72,8 @@ for(var i = 0; i<link.length; i++) {
         if (modal){
             var pos = getOffset(this);
             //show editor
-            if (modal.classList.contains('editModalDisable')){
-                modal.classList.remove('editModalDisable');
+            if (modal.classList.contains('modalDisable')){
+                modal.classList.remove('modalDisable');
             }
             modal.style.top = pos.top + 'px';
             //load data
@@ -34,7 +87,7 @@ for(var i = 0; i<link.length; i++) {
                 },
                 success:function(data){
                     var arr = data.split("+split+");
-                    console.log(arr);
+                    //console.log(arr);
 
                     document.getElementById("editTitle").value=arr[0];
                     CKEDITOR.instances['editContent'].setData(arr[1]);
@@ -180,7 +233,7 @@ submitLink.addEventListener('click', function (e) {
             content: CKEDITOR.instances['editContent'].getData()
         },
         success:function(data){
-            var arr = data.split("<split>");
+            var arr = data.split("+split+");
             console.log(arr);
 
             document.getElementById("editTitle").value=arr[0];
@@ -198,7 +251,16 @@ var cancelLink = document.getElementById('editCancel');
 cancelLink.addEventListener('click', function (e) {
     e.preventDefault();
     var modal = document.querySelector('.editModal');
-    if (!modal.classList.contains('editModalDisable')){
-        modal.classList.add('editModalDisable');
+    if (!modal.classList.contains('modalDisable')){
+        modal.classList.add('modalDisable');
     }
 });
+
+
+ /*
+$('#editCancel').click(function () {
+    var modal = document.querySelector('.editModal');
+    if (!modal.classList.contains('modalDisable')){
+        modal.classList.add('modalDisable');
+    }
+});/**/

@@ -97,7 +97,7 @@ form, .form-group, .input-group, .articleTitle {
     position: absolute;
 }
 
-.editModalDisable{
+.modalDisable{
     display: none;
 }
 
@@ -108,4 +108,18 @@ form, .form-group, .input-group, .articleTitle {
 .editItem {
     width: 100%;
     margin: 20px 0 20px 0;
+}
+
+.editRemove {
+    height:30px;
+    width: 30px;
+    padding: 4px 6px;
+    border: solid 2px #0000cc;
+    border-radius: 15px;
+    background-color: #ffa0a6;
+
+}
+
+div .row .panel-danger{
+    content: '12345';
 }
