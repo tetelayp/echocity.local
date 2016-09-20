@@ -4,7 +4,7 @@
 <div class="row">
     <?php
         foreach ($this->gallery as $item):
-            $src = '/assets/gallery/' . $item->folder . '/small/' . $item->cover;
+            $src = '/assets/gallery/icons/'. $item->cover;// . $item->folder . '/small/'
             $href = 'http://' . $this->server . '/Index/Gallery/' . $item->id;
             $info = $item->description;
             $label = $item->label;

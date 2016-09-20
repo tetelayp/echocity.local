@@ -1,5 +1,5 @@
 <!-- Modal -->
-<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -20,10 +20,14 @@
                         // Replace the <textarea id="editor1"> with a CKEditor
                         // instance, using default configuration.
                         CKEDITOR.replace( 'editContent');
-                        CKEDITOR.config.filebrowserBrowseUrl = '/Controllers/ImageBrowser.php';
+                        CKEDITOR.config.filebrowserBrowseUrl = '/echoBrowser/echoBrowser.php';
+
                         //CKEDITOR.config.toolbar =  [ ['About', 'Bold', 'Link', 'VideoDetector'] ];
 
+                        //CKEDITOR.config.extraPlugins = 'uploadimage';
+
                         CKEDITOR.config.extraPlugins = 'uploadimage';
+                        CKEDITOR.config.uploadUrl = '/uploader/upload.php';
 
 
                             //CKEDITOR.editorConfig = function( config ) {

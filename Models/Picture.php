@@ -9,8 +9,9 @@ class Picture
     public $description;//описание
     public $dateCreate;//дата создания
     public $filename;//имя файла
+    public $info;//информация о файле файла
 
     const VARS_LIST = '`id` SERIAL, `albumID` BIGINT, `label` VARCHAR(100), `description` TEXT, 
-    `dateCreate` INT, `filename` VARCHAR(100)';
+    `dateCreate` INT, `filename` VARCHAR(100), `info` VARCHAR(50)';
 
 }

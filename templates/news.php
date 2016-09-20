@@ -1,8 +1,8 @@
 <h3>Новости</h3>
 <hr>
 <?php
-$editable = 'editable';
-$editable = !isset($editable)?'':$editable;
+$editable = $this->login?'editable':'';
+//$editable = !isset($editable)?'':$editable;
 if ('editable' == $editable):
 ?>
 <div class="row" style="text-align: center">

@@ -115,6 +115,7 @@ class Index extends Controller
 
     public function actionGallery($albumID)
     {
+        //$albumID=-1;
         $album = $this->gallery->getAlbum($albumID);
 
         if (!$album)
@@ -123,7 +124,7 @@ class Index extends Controller
             $this->view->header = 'Альбомы';
             $this->view->subTemplate = 'gallery.php';
         } else {
-            $this->view->folder = $this->gallery->getAlbumParamByID($albumID, 'folder');
+            //$this->view->folder = $this->gallery->getAlbumParamByID($albumID, 'folder');
             $lst = $this->gallery->getAlbum($albumID);
 
             $this->view->header = $this->gallery->getAlbumParamByID($albumID, 'label');

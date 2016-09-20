@@ -55,6 +55,7 @@ class Gallery
             $pic->filename = $name;
             $pic->label = 'file - ' . $name;
             $pic->description = 'Album - ' . $album[0]->folder . ', file - ' . $name;
+            $pic->info = '800 x 600 33kB';////////////////////////////////////////////////////////////////добавить
             $this->db->insertRecord(\Settings::TABLE_PICTURES, $pic);
         }
         return true;

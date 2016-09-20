@@ -4,8 +4,9 @@
 <div class="row">
     <?php
         foreach ($this->gallery as $item):
-            $src = '/assets/gallery/' . $this->folder . '/small/' . $item->filename;
-            $href = '/assets/gallery/' . $this->folder . '/' . $item->filename;
+            //var_dump($item);
+            $src = '/assets/gallery/icons/' . $item->filename;//' . $this->folder . '/
+            $href = '/assets/gallery/'. $item->filename;// . $this->folder . '/'
             $info = $item->description;
             $label = $item->label;
             ?>
