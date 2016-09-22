@@ -11,6 +11,11 @@ require __DIR__ . '/autoload.php';
 
 //$a = $n->getLastArticlesTitles(2);
 
+$db = new \Models\Db();
+$article = new \Models\Article();
+//$article->id = '16';
+$article->title = 'Заголовок';
+$article->content = 'Content Ha-Ha-Ha +++ <?php var_dump(12345);) ?>';
+$article->dateCreate = time();
 
-$a = ((INT) 7) / ((INT)2);
-var_dump($a);
+var_dump($db->insertUpdateRecord(Settings::TABLE_NEWS,$article));

@@ -1,3 +1,5 @@
+var id;
+
 $('.editable')
     .on('mouseover mouseout',function () {
 
@@ -15,11 +17,13 @@ $('.editable')
         // show editor  '<div style="text-align: center"><img src="/assets/img/waitLine.gif"></div>'
         $('#editModal').modal('show');
 
+        id = $(this).attr('id');
+
         $.ajax({
             url: "/ajax/getArticle.php",
             type: "POST",
             data: {
-                id: $(this).attr('id')
+                id: id
             },
             beforeSend: function () {
                 CKEDITOR.instances['editContent'].setData('<div style="height: 100%; width: 100%; text-align: center"><img style="top:49%" src="/assets/img/waitLine.gif"></div>');
@@ -59,8 +63,29 @@ $('#btnDelete').click(function () {
 
 // Save
 
-$('btnSave').click(function (e) {
+$('#btnSave').click(function (e) {
+    var title = $("#editTitle").val();
+    var content = CKEDITOR.instances['editContent'].getData();
 
+    $.ajax({
+        url: "/ajax/setArticle.php",
+        type: "POST",
+        data: {
+            id: id,
+            title: title,
+            content: content
+        },
+        beforeSend: function () {
+            CKEDITOR.instances['editContent'].setData('<div style="height: 100%; width: 100%; text-align: center"><img style="top:49%" src="/assets/img/waitLine.gif"></div>');
+        },
+        success: function ($data) {
+            //alert($data);
+            location.reload();
+        },
+        complete: function () {
+            $('#editModal').modal('hide');
+        }
+    });
 });
 
 

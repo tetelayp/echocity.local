@@ -22,9 +22,10 @@
                         CKEDITOR.replace( 'editContent');
                         CKEDITOR.config.filebrowserBrowseUrl = '/echoBrowser/echoBrowser.php';
 
+                        //CKEDITOR.config.filebrowserUploadUrl = '/uploader/upload.php';
+                        //CKEDITOR.config.filebrowserImageUploadUrl = '/uploader/upload.php?type=Images';
                         //CKEDITOR.config.toolbar =  [ ['About', 'Bold', 'Link', 'VideoDetector'] ];
 
-                        //CKEDITOR.config.extraPlugins = 'uploadimage';
 
                         CKEDITOR.config.extraPlugins = 'uploadimage';
                         CKEDITOR.config.uploadUrl = '/uploader/upload.php';

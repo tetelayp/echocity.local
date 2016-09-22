@@ -19,7 +19,7 @@
         }
 
         body{
-            padding-left: 150px;
+            padding-left: 200px;
             background-color: white;
         }
         .sideBar{
@@ -30,23 +30,33 @@
             float: left;
 
             height: 100%;
-            width: 150px;
+            width: 200px;
 
-            padding: 15px;
+            padding: 2px;
 
             border: solid 2px #67b168;
         }
 
-        a{
-            text-decoration: none;
 
-        }
         ul{
             list-style: none;
         }
 
         ul>li{
-            padding-bottom: 15px;
+            padding: 0;
+            margin: 2px;
+            border:solid 2px #1b6d85;
+            border-radius: 15px;
+        }
+
+        ul>li div{
+            height: 100%;
+            width: 100%;
+            padding: 15px;
+        }
+
+        ul>li a{
+            text-decoration: none;
         }
 
         .imgList {
@@ -105,11 +115,11 @@ $imgs = $db->getAllRecords(Settings::TABLE_PICTURES, \Models\Picture::class);
             <?php
             foreach ($albums as $album):
             ?>
-                <li><a href="#" album="<?=$album->id?>"><?=$album->label?></a></li>
+                <li><a href="#" album="<?=$album->id?>"><div><?=$album->label?></div></a></li>
             <?php
             endforeach;
             ?>
-            <li><a href="#" album="-1">Остальные фото</a></li>
+            <li><a href="#" album="-1"><div>Остальные фото</div></a></li>
         </ul>
 
 </div>
@@ -120,7 +130,7 @@ $itemSplitter = '=;=;=';
 $fieldSplitter = ';;;';
 foreach ($imgs as $img):
 
-$serialize .= $itemSplitter.$img->id. $fieldSplitter .$img->albumID. $fieldSplitter .$img->label. $fieldSplitter .$img->filename;
+$serialize .= $itemSplitter.$img->id. $fieldSplitter .$img->albumID. $fieldSplitter .$img->label. $fieldSplitter .$img->filename. $fieldSplitter .$img->info;
 
 endforeach;
 $serialize = substr($serialize,strlen($itemSplitter));
@@ -140,6 +150,7 @@ $serialize = substr($serialize,strlen($itemSplitter));
         img.albumID = temp1[1];
         img.label = temp1[2];
         img.filename = temp1[3];
+        img.info = temp1[4];
         imgs[i] = img;
     }
 
@@ -167,7 +178,7 @@ $serialize = substr($serialize,strlen($itemSplitter));
             if (albumID==picsArray[i].albumID){
                 var src = '/assets/gallery/' + picsArray[i].filename;//icons/
 
-                innerHTML += '<div><img src="' + src + '" ><div>' + '12345' + ' x ' + '12345' + '</div></div>';
+                innerHTML += '<div><img src="' + src + '" ><div>' + picsArray[i].info + '</div></div>';
 
             }
         }

@@ -30,7 +30,7 @@ class Index extends Controller
         session_start();
         if (isset($_SESSION['echoAuthorize'])){
             $this->view->login = true;
-            echo 'Authorize';
+            //echo 'is authorize';
         } else {
             $this->view->login = false;
         }
@@ -47,7 +47,7 @@ class Index extends Controller
                 $_SESSION['echoAuthorize'] = $user->id;
 
                 $this->view->login = true;
-                echo 'LOGIN';
+                //echo 'LOGIN';
             }
         }
         $this->actionDefault();
@@ -60,6 +60,7 @@ class Index extends Controller
                 setcookie(session_name(), session_id(), time()-60*60*24);
 
                 session_destroy();
+                //session_id(0);
                 $this->view->login = false;
                 echo 'LOGOUT';
             }
