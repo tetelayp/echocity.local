@@ -45,6 +45,11 @@ class News
         return $result[0];
     }
 
+    public function deleteArticleByID($articleID)
+    {
+        return $this->db->deleteRecordsByID(\Settings::TABLE_NEWS, $articleID);
+    }
+
     public function getArticlesCount()
     {
         $sql = 'SELECT COUNT(*) FROM ' . \Settings::TABLE_NEWS;

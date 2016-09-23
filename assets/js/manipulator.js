@@ -26,18 +26,10 @@ $('.editable')
                 id: id
             },
             beforeSend: function () {
-                CKEDITOR.instances['editContent'].setData('<div style="height: 100%; width: 100%; text-align: center"><img style="top:49%" src="/assets/img/waitLine.gif"></div>');
+                //CKEDITOR.instances['editContent'].setData('<div style="height: 100%; width: 100%; text-align: center"><img style="top:49%" src="/assets/img/waitLine.gif"></div>');
             },
             success: onLoadArticle
         });
-
-/*        $.post(
-            "/ajax/getArticle.php",
-            {
-                id: $(this).attr('id')
-            },
-            onLoadArticle
-        );/**/
         
     });
 
@@ -48,11 +40,27 @@ function onLoadArticle(data) {
     CKEDITOR.instances['editContent'].setData(arr[1]);
 }
 
+//   confirm on Yes button
 $('#btnYes').click(function (e) {
-    alert ('Delete');
-    $('#confirmModal').modal('hide');
+    $.ajax({
+        url: "/ajax/deleteArticle.php",
+        type: "POST",
+        data: {
+            id: id
+        },
+        beforeSend: function () {
+            CKEDITOR.instances['editContent'].setData('<div style="height: 100%; width: 100%; text-align: center"><img style="top:49%" src="/assets/img/waitLine.gif"></div>');
+        },
+        success: function ($data) {
+            //alert($data);
+            location.reload();
+        },
+        complete: function () {
+            $('#confirmModal').modal('hide');
+        }
+    });
 });
-//    show confirm dialog on Delete button
+//   confirm on Delete button
 
 $('#btnDelete').click(function () {
     $('#editModal').modal('hide');

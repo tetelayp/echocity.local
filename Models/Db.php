@@ -109,10 +109,19 @@ class Db
 
     public function getRecordsByID($tableName, $id, $class)
     {
-        $sql = 'SELECT * FROM `' . $tableName . '` WHERE id=' . $id;
+        $sql = 'SELECT * FROM `' . $tableName . '` WHERE `id`=' . $id;
         $result = $this->query($sql, $class);
         return $result;
     }
+
+    public function deleteRecordsByID($tableName, $id)
+    {
+        //DELETE FROM `test3`.`users` WHERE `users`.`id` = 342
+        $sql = 'DELETE FROM `' . $tableName . '` WHERE `id`=' . $id;
+        $result = $this->execute($sql);
+        return $result;
+    }
+
 
 
     public function execute($sql)

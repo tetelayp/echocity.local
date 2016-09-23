@@ -6,21 +6,25 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title" id="editModalTitle">Редактор</h4>
             </div>
-            <div class="modal-body">
+            <div class="modal-body echo-article">
                 <script src="/ckeditor/ckeditor.js"></script>
 <!--                <script src="//cdn.ckeditor.com/4.5.11/full/ckeditor.js"></script>-->
-                <form name="editForm"  method="post" action="/ajax.php">
+                <form name="editForm" class="editForm"  method="post" action="/ajax.php">
                     <div class="editItem">
-                        <input name="title" type="text" maxlength="100" id="editTitle" style="width: 100%" placeholder="Краткое описание (заголовок)">
+                        <input name="title" type="text" maxlength="100" id="editTitle"  placeholder="Краткое описание (заголовок)">
                     </div>
                     <div class="row">
-                        <textarea name="content" id="editContent" style="width: 100%" placeholder="Содержание"></textarea>
+                        <textarea name="content" id="editContent"  placeholder="Содержание"></textarea>
                     </div>
                     <script>
                         // Replace the <textarea id="editor1"> with a CKEditor
                         // instance, using default configuration.
                         CKEDITOR.replace( 'editContent');
                         CKEDITOR.config.filebrowserBrowseUrl = '/echoBrowser/echoBrowser.php';
+                        //CKEDITOR.config.width = 767;
+                        CKEDITOR.config.height = 300;
+                        CKEDITOR.config.allowedContent = true;
+                        CKEDITOR.config.contentsCss = CKEDITOR.getUrl('/assets/css/echoStyle.css');
 
                         //CKEDITOR.config.filebrowserUploadUrl = '/uploader/upload.php';
                         //CKEDITOR.config.filebrowserImageUploadUrl = '/uploader/upload.php?type=Images';

@@ -19,7 +19,7 @@ endif;
 foreach ($this->articles as $article):
     $dateCreate = date('d.m.Y', $article->dateCreate);
     ?>
-    <div class="row">
+    <div class="row echo-article">
         <div class="panel panel-info <?=$editable?>" id = "n<?=$article->id?>">
             <div class="panel-heading">
                 <h4><?= $article->title ?></h4>
