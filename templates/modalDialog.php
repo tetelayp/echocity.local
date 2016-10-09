@@ -23,8 +23,16 @@
                         CKEDITOR.config.filebrowserBrowseUrl = '/echoBrowser/echoBrowser.php';
                         //CKEDITOR.config.width = 767;
                         CKEDITOR.config.height = 300;
-                        CKEDITOR.config.allowedContent = true;
+                        //CKEDITOR.config.allowedContent = true;
                         CKEDITOR.config.contentsCss = CKEDITOR.getUrl('/assets/css/echoStyle.css');
+
+//                        CKEDITOR.stylesSet.add( 'my_styles',
+//                            [
+//                                {
+//                                    element : 'img', attributes : { 'class' : 'fit' }
+//                                }
+//                            ]);
+//                        config.stylesSet = 'my_styles';
 
                         //CKEDITOR.config.filebrowserUploadUrl = '/uploader/upload.php';
                         //CKEDITOR.config.filebrowserImageUploadUrl = '/uploader/upload.php?type=Images';

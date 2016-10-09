@@ -6,19 +6,24 @@ require __DIR__ . '/../autoload.php';
 
 if (isset($_POST['id']))$id = substr($_POST['id'],1);
 $title = $_POST['title'];
+if (trim($title)=='')$title='Новость';
+
 $content = $_POST['content'];
 
-$db = new \Models\Db();
-$article = new \Models\Article();
+if (trim($content)!=''){
+    $db = new \Models\Db();
+    $article = new \Models\Article();
 
-$article->title = $title;
-$article->content = $content;
-if (isset($id)){
-    $article->id = $id;
-} else {
-    $article->dateCreate = time();
+    $article->title = $title;
+    $article->content = $content;
+    if (isset($id)){
+        $article->id = $id;
+    } else {
+        $article->dateCreate = time();
+    }
+
+
+    echo $db->insertUpdateRecord(Settings::TABLE_NEWS,$article);
 }
 
-
-echo $db->insertUpdateRecord(Settings::TABLE_NEWS,$article);
 

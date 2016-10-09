@@ -96,7 +96,7 @@ class Index extends Controller
         $this->view->pagesCount =(int) ceil($this->news->getArticlesCount() / \Settings::ARTICLES_LIMIT);// количесво страниц новостей
 
 
-        $this->view->articles = $this->news->getArticles($page);// новости лоя заданной страницы
+        $this->view->articles = $this->news->getArticles($page);// новости для заданной страницы
 
         if (substr($page,0,1)!='n')
         {
@@ -104,7 +104,7 @@ class Index extends Controller
         } else {
             $articleNumber = substr($page,1);
             $this->view->currentPage = (int) floor($articleNumber / \Settings::ARTICLES_LIMIT);
-
+            var_dump($this->view->currentPage);
         }
 
         $this->view->pagesArray = $this->news->getPagesArray($this->view->currentPage, $this->view->pagesCount);
